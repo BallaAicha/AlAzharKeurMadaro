@@ -42,4 +42,6 @@ public class Classe extends BaseEntity {
         this.classBench = classBench;
         this.niveau = niveau;
     }
+
+
 }

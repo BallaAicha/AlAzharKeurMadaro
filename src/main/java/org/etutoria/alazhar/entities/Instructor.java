@@ -1,6 +1,10 @@
 package org.etutoria.alazhar.entities;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -35,6 +39,8 @@ public class Instructor extends BaseEntity{
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
+    private Set<Course> courses = new HashSet<>();
     public Instructor(String firstName, String lastName, String summary, String phone, String photo, String salary) {
         this.firstName = firstName;
         this.lastName = lastName;
