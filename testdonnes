@@ -1,0 +1,59 @@
+{
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "dateNaissance": "2010-05-10",
+  "address": "123 Elm Street",
+  "genre": "F",
+  "user": {
+    "email": "alice.johnson@example.com",
+    "password": "password123"
+  },
+  "fiches": [
+    {
+      "typeFiche": "ATTESTATION_SCOLAIRE",
+      "annee": {
+        "annee": "2026-2027"
+      }
+    }
+  ],
+  "inscription": {
+    "dateInscription": "2023-09-01",
+    "montant": "150",
+    "status": "Active",
+    "annee": {
+      "annee": "2026-2027"
+    },
+    "classe": {
+      "className": "CM1A",
+      "niveau": {
+        "niveauName": "CM1",
+        "mensualite": 100.0,
+        "fraisInscription": 50.0,
+        "fraisScolarite": 200.0,
+        "ageMin": 6,
+        "ageMax": 7,
+        "critereAdmission": "Passer le test d'admission",
+        "criterePassage": "Réussir les examens"
+      }
+    }
+  },
+  "tuteur": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "number": "123456789",
+    "email": "john.doe@example.com",
+    "address": "123 Main St"
+  },
+  "paiements": [
+    {
+      "montant": "150.0",
+      "typePaiement": "FRAIS_SCOLAIRE",
+      "annee": {
+        "annee": "2026-2027"
+      },
+      "mois": {
+        "mois": "Janvier"
+      }
+    }
+  ]
+}
