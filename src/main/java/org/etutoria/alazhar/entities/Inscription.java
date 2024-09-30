@@ -20,17 +20,16 @@ public class Inscription extends BaseEntity {
     private String montant;
     private String status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "annee_id", nullable = false)
     private ANNEE annee;
-
-    @Setter
-    @OneToOne(mappedBy = "inscription")
-    private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id", referencedColumnName = "class_id", nullable = false)
     private Classe classe;
+
+    @OneToOne(mappedBy = "inscription")
+    private Student student;
 
     public Inscription(String dateInscription, String montant, String status, ANNEE annee, Classe classe) {
         this.dateInscription = dateInscription;
@@ -38,6 +37,5 @@ public class Inscription extends BaseEntity {
         this.status = status;
         this.annee = annee;
         this.classe = classe;
-
     }
 }

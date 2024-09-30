@@ -13,10 +13,9 @@ import java.util.Set;
 public class ClasseDto {
     @Schema(description = "ID of the class", example = "1")
     private Long classId;
-
     @NotEmpty(message = "Class name cannot be null or empty")
     @Size(max = 45, message = "Class name must be at most 45 characters")
-    @Schema(description = "Name of the class", example = "Math 101")
+    @Schema(description = "Name of the class", example = "CM2A")
     private String className;
 
     @Schema(description = "Size of the class", example = "30")

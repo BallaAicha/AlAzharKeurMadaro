@@ -11,10 +11,10 @@ public class NiveauDto {
     private Long niveauId;
 
     @NotEmpty(message = "Niveau name cannot be null or empty")
-    @Schema(description = "Name of the niveau", example = "Primary")
+    @Schema(description = "Name of the niveau", example = "CM2")
     private String niveauName;
 
-    @Schema(description = "Mensualite of the niveau", example = "1000.0")
+    @Schema(description = "Mensualite of the niveau", example = "100.0")
     private double mensualite;
 
     @Schema(description = "Frais d'inscription of the niveau", example = "200.0")

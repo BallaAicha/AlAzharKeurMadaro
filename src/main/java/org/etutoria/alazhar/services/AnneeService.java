@@ -6,5 +6,5 @@ import org.etutoria.alazhar.entities.ANNEE;
 public interface AnneeService {
     AnneeDto findOrCreateAnnee(String annee);
 
-    AnneeDto fromAnnee(ANNEE anneeEntity);
+
 }

@@ -28,10 +28,10 @@ public class TuteurServiceImpl implements TuteurService {
         // Retrieve or create the tuteur
         Optional<Tuteur> existingTuteur = tuteurRepository.findByEmail(tuteurDto.getEmail());
         Tuteur tuteur;
-        if (existingTuteur.isPresent()) {
+        if (existingTuteur.isPresent()) {//si le tuteur existe déjà, on le met à jour
             tuteur = existingTuteur.get();
             tuteurMapper.updateTuteurFromDto(tuteurDto, tuteur);
-        } else {
+        } else {//sinon, on le crée et on le sauvegarde dans la base de données
             tuteur = tuteurMapper.fromTuteurDto(tuteurDto);
         }
 

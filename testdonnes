@@ -1,21 +1,15 @@
+—————Student—————————
+
 {
-  "firstName": "Alice",
-  "lastName": "Johnson",
+  "firstName": "papa",
+  "lastName": "mbacke",
   "dateNaissance": "2010-05-10",
   "address": "123 Elm Street",
   "genre": "F",
   "user": {
-    "email": "alice.johnson@example.com",
+    "email": "papa.johnson@example.com",
     "password": "password123"
   },
-  "fiches": [
-    {
-      "typeFiche": "ATTESTATION_SCOLAIRE",
-      "annee": {
-        "annee": "2026-2027"
-      }
-    }
-  ],
   "inscription": {
     "dateInscription": "2023-09-01",
     "montant": "150",
@@ -24,7 +18,7 @@
       "annee": "2026-2027"
     },
     "classe": {
-      "className": "CM1A",
+      "className": "CM2A",
       "niveau": {
         "niveauName": "CM1",
         "mensualite": 100.0,
@@ -43,17 +37,42 @@
     "number": "123456789",
     "email": "john.doe@example.com",
     "address": "123 Main St"
+  }
+}
+
+
+
+
+
+
+
+—————FicheEleve———————
+{
+  "typeFiche": "ATTESTATION_PARENTALE",
+  "student": {
+    "studentId": 3
   },
-  "paiements": [
-    {
-      "montant": "150.0",
-      "typePaiement": "FRAIS_SCOLAIRE",
-      "annee": {
-        "annee": "2026-2027"
-      },
-      "mois": {
-        "mois": "Janvier"
-      }
-    }
-  ]
+  "annee": {
+    "id": 3,
+    "annee": "2026-2027"
+  }
+}
+
+————————————
+
+——————PaymentEleve————————————
+{
+  "montant": "500",
+  "typePaiement": "FRAIS_SCOLAIRE",
+  "annee": {
+    "id": 3,
+    "annee": "2026-2027"
+  },
+  "mois": {
+    "id": 1,
+    "mois": "January"
+  },
+  "student": {
+    "studentId": 3
+  }
 }

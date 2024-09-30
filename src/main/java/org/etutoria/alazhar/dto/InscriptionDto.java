@@ -11,7 +11,7 @@ public class InscriptionDto {
     private Long id;
 
     @NotEmpty(message = "Date of inscription cannot be null or empty")
-    @Schema(description = "Date of inscription", example = "01/01/2022")
+    @Schema(description = "Date of inscription", example = "2024-10-10")
     private String dateInscription;
 
     @NotEmpty(message = "Montant cannot be null or empty")

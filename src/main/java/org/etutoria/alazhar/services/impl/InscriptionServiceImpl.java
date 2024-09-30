@@ -37,38 +37,26 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     public InscriptionDto createInscription(InscriptionDto inscriptionDto) {
-        // Retrieve or create the year
+        // Retrieve the year
         Optional<ANNEE> annee = anneeDao.findByAnnee(inscriptionDto.getAnnee().getAnnee());
         if (annee.isEmpty()) {
-            annee = Optional.of(anneeDao.save(new ANNEE(inscriptionDto.getAnnee().getAnnee())));
+            throw new IllegalArgumentException("Year not found: " + inscriptionDto.getAnnee().getAnnee());
         }
 
-        // Retrieve or create the niveau
+        // Retrieve the niveau
         NiveauDto niveauDto = inscriptionDto.getClasse().getNiveau();
         Optional<Niveau> niveau = niveauDao.findByNiveauName(niveauDto.getNiveauName());
         if (niveau.isEmpty()) {
-            niveau = Optional.of(niveauDao.save(new Niveau(
-                    niveauDto.getNiveauName(),
-                    niveauDto.getMensualite(),
-                    niveauDto.getFraisInscription(),
-                    niveauDto.getFraisScolarite(),
-                    niveauDto.getAgeMin(),
-                    niveauDto.getAgeMax(),
-                    niveauDto.getCritereAdmission(),
-                    niveauDto.getCriterePassage()
-            )));
+            throw new IllegalArgumentException("Niveau not found: " + niveauDto.getNiveauName());
         }
 
-        // Retrieve or create the class
+        // Retrieve the class
         Optional<Classe> classe = classeDao.findByClassName(inscriptionDto.getClasse().getClassName());
         if (classe.isEmpty()) {
-            classe = Optional.of(classeDao.save(new Classe(
-                    inscriptionDto.getClasse().getClassName(),
-                    30, 15, niveau.get()
-            )));
+            throw new IllegalArgumentException("Class not found: " + inscriptionDto.getClasse().getClassName());
         }
 
-        // Set the retrieved or created entities
+        // Set the retrieved entities
         Inscription inscription = inscriptionMapper.fromInscriptionDto(inscriptionDto);
         inscription.setAnnee(annee.get());
         inscription.setClasse(classe.get());

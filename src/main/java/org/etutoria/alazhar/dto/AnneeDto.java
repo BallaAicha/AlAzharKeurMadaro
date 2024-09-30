@@ -12,7 +12,7 @@ public class AnneeDto {
     private Long id;
 
     @NotEmpty(message = "Annee cannot be null or empty")
-    @Schema(description = "Annee", example = "2023")
+    @Schema(description = "Annee", example = "2026-2027")
     private String annee;
 
     public ANNEE toEntity() {

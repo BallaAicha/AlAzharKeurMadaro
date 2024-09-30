@@ -1,5 +1,4 @@
 package org.etutoria.alazhar.services.impl;
-
 import lombok.AllArgsConstructor;
 import org.etutoria.alazhar.dao.StudentDao;
 import org.etutoria.alazhar.dto.*;
@@ -11,29 +10,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.stream.Collectors;
-
 @Service
 @Transactional
 @AllArgsConstructor
 public class StudentServiceImpl implements IStudentService {
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
-
     private final UserService userService;
     private final StudentMapper studentMapper;
-    private final FicheEleveMapper ficheEleveMapper;
     private final InscriptionMapper inscriptionMapper;
     private final TuteurMapper tuteurMapper;
-    private final PaiementMapper paiementMapper;
     private final StudentDao studentRepository;
-    private final FicheEleveService ficheEleveService;
     private final InscriptionService inscriptionService;
     private final TuteurService tuteurService;
-    private final PaiementService paiementService;
     private final AnneeService anneeService;
     private final ClasseService classeService;
-    private final MoisService moisService;
-    private final MoisMapper moisMapper;
 
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
@@ -81,41 +71,6 @@ public class StudentServiceImpl implements IStudentService {
         // Save the student entity
         logger.info("Saving the student entity");
         Student savedStudent = studentRepository.save(student);
-
-        // Save student's files
-        logger.info("Saving student's files");
-        final Student finalSavedStudent = savedStudent;
-        savedStudent.setFiches(studentDto.getFiches().stream()
-                .map(ficheEleveDto -> {
-                    FicheEleve ficheEleve = ficheEleveMapper.fromFicheEleveDto(ficheEleveDto);
-                    ficheEleve.setStudent(finalSavedStudent);
-                    ficheEleve.setAnnee(anneeService.findOrCreateAnnee(ficheEleveDto.getAnnee().getAnnee()).toEntity());
-                    return ficheEleveService.createFicheEleve(ficheEleveMapper.fromFicheEleve(ficheEleve));
-                })
-                .map(ficheEleveMapper::fromFicheEleveDto)
-                .collect(Collectors.toSet()));
-
-        // Save the updated student entity with fiches
-        logger.info("Saving the updated student entity with fiches");
-        savedStudent = studentRepository.save(savedStudent);
-
-        // Make the payment
-        logger.info("Making the payment");
-        savedStudent.setPaiements(studentDto.getPaiements().stream()
-                .map(paiementDto -> {
-                    logger.info("Persisting Annee and Mois for Paiement");
-                    ANNEE anneeEntity = anneeService.findOrCreateAnnee(paiementDto.getAnnee().getAnnee()).toEntity();
-                    Mois moisEntity = moisService.findOrCreateMois(paiementDto.getMois().getMois());
-                    paiementDto.setAnnee(anneeService.fromAnnee(anneeEntity));
-                    paiementDto.setMois(moisMapper.fromMois(moisEntity));
-                    return paiementService.createPaiement(paiementDto);
-                })
-                .map(paiementMapper::fromPaiementDto)
-                .collect(Collectors.toSet()));
-
-        // Save the updated student entity with paiements
-        logger.info("Saving the updated student entity with paiements");
-        savedStudent = studentRepository.save(savedStudent);
 
         // Convert the saved Student entity back to StudentDto
         logger.info("Converting the saved Student entity back to StudentDto");

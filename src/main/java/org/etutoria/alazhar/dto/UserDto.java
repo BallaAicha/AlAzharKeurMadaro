@@ -16,7 +16,7 @@ public class UserDto {
     @Email(message = "Email should be valid")
     @Size(max = 45, message = "Email must be at most 45 characters")
     @Schema(
-            description = "Email of the user", example = "john.doe@example.com"
+            description = "Email of the user", example = "ousmane.mbacke@example.com"
     )
     private String email;
     @NotEmpty(message = "Password cannot be null or empty")

@@ -23,7 +23,7 @@ public class AnneeServiceImpl implements AnneeService {
     @Override
     public AnneeDto findOrCreateAnnee(String annee) {
         ANNEE anneeEntity = anneeDao.findByAnnee(annee)
-                .orElseGet(() -> {
+                .orElseGet(() -> {//si l'année n'existe pas, on la crée
                     ANNEE newAnnee = new ANNEE();
                     newAnnee.setAnnee(annee);
                     return anneeDao.save(newAnnee);
@@ -31,8 +31,5 @@ public class AnneeServiceImpl implements AnneeService {
         return anneeMapper.fromAnnee(anneeEntity);
     }
 
-    @Override
-    public AnneeDto fromAnnee(ANNEE anneeEntity) {
-        return anneeMapper.fromAnnee(anneeEntity);
-    }
+
 }

@@ -2,11 +2,9 @@ package org.etutoria.alazhar.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.etutoria.alazhar.dao.PaymentDao;
+import org.etutoria.alazhar.dao.StudentDao;
 import org.etutoria.alazhar.dto.PaiementDto;
-import org.etutoria.alazhar.entities.ANNEE;
-
-import org.etutoria.alazhar.entities.Mois;
-import org.etutoria.alazhar.entities.Paiement;
+import org.etutoria.alazhar.entities.*;
 import org.etutoria.alazhar.mapper.PaiementMapper;
 import org.etutoria.alazhar.services.AnneeService;
 import org.etutoria.alazhar.services.MoisService;
@@ -22,6 +20,7 @@ public class PaiementServiceImpl implements PaiementService {
     private final PaymentDao paiementRepository;
     private final AnneeService anneeService;
     private final MoisService moisService;
+    private final StudentDao studentDao;
 
     @Override
     public PaiementDto createPaiement(PaiementDto paiementDto) {
@@ -29,14 +28,19 @@ public class PaiementServiceImpl implements PaiementService {
         ANNEE annee = anneeService.findOrCreateAnnee(paiementDto.getAnnee().getAnnee()).toEntity();
         Mois mois = moisService.findOrCreateMois(paiementDto.getMois().getMois());
 
+        // Ensure Student is properly set and persisted
+        Student student = studentDao.findById(paiementDto.getStudent().getStudentId())
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
         // Map DTO to entity
         Paiement paiement = paiementMapper.fromPaiementDto(paiementDto);
         paiement.setAnnee(annee);
         paiement.setMois(mois);
+        paiement.setStudent(student);
+        paiement.setTypePaiement(TypePaiment.valueOf(paiementDto.getTypePaiement()));
 
         // Save Paiement entity
         Paiement savedPaiement = paiementRepository.save(paiement);
         return paiementMapper.fromPaiement(savedPaiement);
     }
 }
-
